@@ -6,4 +6,10 @@
         <item>Game3</item>
         <item>Game4</item>
     </string-array>
+    <string-array name="scoreAmount" >
+    <item>1</item>
+    <item>2</item>
+    <item>4</item>
+    <item>6</item>
+    </string-array>
 </resources>

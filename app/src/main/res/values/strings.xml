@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">YujiaJI-score</string>
-    <string name="team_a">Team A</string>
     <string name="vs">VS</string>
+    <string name="team_a">Team A</string>
     <string name="team_b">Team B</string>
     <string name="teamA">Team A</string>
     <string name="teamB">Team B</string>
@@ -10,7 +10,9 @@
     <string name="gameTitle">Game:</string>
     <string name="amountTitle">Amount:</string>
     <string name="scoreTitle">Score:</string>
-    <string name="scoreA">00</string>
-    <string name="scoreB">00</string>
+    <string name="scoreA">0</string>
+    <string name="scoreB">0</string>
     <string name="scoreChangeText">00</string>
+    <string name="gameName">game name</string>
+    <string name="_00">00</string>
 </resources>

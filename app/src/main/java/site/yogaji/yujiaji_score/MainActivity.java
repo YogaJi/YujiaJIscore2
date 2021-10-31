@@ -21,10 +21,9 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity
     implements View.OnClickListener,RadioGroup.OnCheckedChangeListener {
-//    private Spinner spinner;
-//    private List<String> list;
-    private ArrayAdapter<String> arrayAdapter;
     private static int perAmount = 0;
+    private int totalScore;
+    private int count = 0;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -38,8 +37,8 @@ public class MainActivity extends AppCompatActivity
         RadioGroup chooseTeam = findViewById(R.id.chooseTeam);
 
         TextView gameName = findViewById(R.id.gameName);
-        Spinner spinner = findViewById(R.id.gameSpin);
-        SeekBar seekbar = findViewById(R.id.seekbar);
+        Spinner gameSpinner = findViewById(R.id.gameSpin);
+        Spinner  scoreAmountSpinner = findViewById(R.id.amountSpin);
 
         Button desButton = findViewById(R.id.desButton);
         Button insButton = findViewById(R.id.insButton);
@@ -50,30 +49,31 @@ public class MainActivity extends AppCompatActivity
         desButton.setOnClickListener(this);
         insButton.setOnClickListener(this);
 
-        //add spinner list
-        List<String> list = new ArrayList<>();
-        list.add("American Football");
-        list.add("Basketball");
-        list.add("Freestyle Wrestling");
-        list.add("Cricket");
         //2. set Listener
         chooseTeam.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                perAmount = 0;
+                totalScore = 0;
                 updateScreen();
             }
         });
-        //add Adapter for spinner
-        ArrayAdapter arrAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list);
+
+        //add game list for game spinner
+        List<String> games = new ArrayList<>();
+        games.add("American Football");
+        games.add("Basketball");
+        games.add("Freestyle Wrestling");
+        games.add("Cricket");
+        //add Adapter for gameSpinner
+        ArrayAdapter arrAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, games);
         arrAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(arrAdapter);
+        gameSpinner.setAdapter(arrAdapter);
         //set spinner Listener
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        gameSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, "You choose " + list.get(position), Toast.LENGTH_SHORT).show();
-                gameName.setText(list.get(position));
+                Toast.makeText(MainActivity.this, "You choose " + games.get(position), Toast.LENGTH_SHORT).show();
+                gameName.setText(games.get(position));
                 updateScreen();
             }
             @Override
@@ -81,21 +81,31 @@ public class MainActivity extends AppCompatActivity
             }
 
         });
-        //seekbar Listener
-        seekbar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        //add scoreAmount list for score spinner
+        List<String> scoreAmountList = new ArrayList<>();
+        scoreAmountList.add("1");
+        scoreAmountList.add("2");
+        scoreAmountList.add("4");
+        scoreAmountList.add("6");
+
+        //add Adapter for scoreAmountSpinner
+        ArrayAdapter scoreAmountAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, scoreAmountList);
+        scoreAmountAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        scoreAmountSpinner.setAdapter(scoreAmountAdapter);
+        //set spinner Listener
+        scoreAmountSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                if(fromUser){
-                    perAmount = progress;
-                    updateScreen();
-                }
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                perAmount =Integer.parseInt(scoreAmountList.get(position));
+                totalScore = perAmount;
+                //clear button counts
+                count = 0;
+                updateScreen();
             }
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
+            public void onNothingSelected(AdapterView<?> parent) {
             }
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-            }
+
         });
 
     }//end of onCreate
@@ -103,40 +113,47 @@ public class MainActivity extends AppCompatActivity
     //3.add onClick function
     @Override
     public void onClick(View view) {
-        //set buttons to ins and des per score and link update() function
+
+        //set buttons to ins and des per score by the click (count) and link update() function
         switch(view.getId()){
             case R.id.desButton:
-                perAmount -= 1;
-                if(perAmount <= 0){
-                    perAmount= 0;
+                if(count == 0){
+                    totalScore = perAmount;
+                }else{
+                    count--;
+                    totalScore = count * perAmount;
                 }
+
                 break;
             case R.id.insButton:
-                perAmount += 1;
-                if(perAmount >= 20){
-                    perAmount= 20;
+                if(totalScore >= 20){
+                    totalScore = 20;
+                }else{
+                    count++;
+                    totalScore = count * perAmount;
                 }
+
                 break;
 
             default:
                 Log.e("click event","wrong button");
 
         }
-        //set seekbar progress to link the per score
-        SeekBar seekbar = findViewById(R.id.seekbar);
-        seekbar.setProgress(perAmount,true);
 
         updateScreen();
 
     }//end of onClick
 
+    //clear total score when changing team
     @Override
     public void onCheckedChanged(RadioGroup radioGroup,int checkedId){
         if(radioGroup.getId() == R.id.chooseTeam){
+            totalScore = 0;
+            count = 0;
             updateScreen();
         }
     }
-    //4.set updateScreen to update text, per score, score & update view and buttons
+    //4.set updateScreen to update text, score amount , total score & update view and buttons
     public void updateScreen(){
         //get Id
         Button teamABut = findViewById(R.id.teamAbut);
@@ -144,26 +161,26 @@ public class MainActivity extends AppCompatActivity
         TextView scoreATextView = findViewById(R.id.scoreAText);
         TextView scoreBTextView = findViewById(R.id.scoreBText);
 
+        Button desButton = findViewById(R.id.desButton);
+        Button insButton = findViewById(R.id.insButton);
+
         RadioGroup chooseTeam = findViewById(R.id.chooseTeam);
-        int sumA = 0;
-        int sumB = 0;
-        //set team buttons and calculate scores
+
+        //set team buttons and update total score on the team's score text view
         char team = 'A';
         switch (chooseTeam.getCheckedRadioButtonId()){
             case R.id.chooseA:
                 team ='A';
                 teamBBut.setEnabled(false);
                 teamABut.setEnabled(true);
-                sumA += perAmount;
-                scoreATextView.setText(String.valueOf(sumA));
+                scoreATextView.setText(String.valueOf(totalScore));
                 break;
 
             case R.id.chooseB:
                 team ='B';
                 teamABut.setEnabled(false);
                 teamBBut.setEnabled(true);
-                sumB += perAmount;
-                scoreBTextView.setText(String.valueOf(sumB));
+                scoreBTextView.setText(String.valueOf(totalScore));
                 break;
 
             default://else;
@@ -171,20 +188,28 @@ public class MainActivity extends AppCompatActivity
                 teamABut.setEnabled(true);
         }
 
-        Button desButton = findViewById(R.id.desButton);
-        Button insButton = findViewById(R.id.insButton);
 
-        //set max and min button value
-        desButton.setEnabled(perAmount != 0);
+        //set max and min button value [0,20]
 
-        insButton.setEnabled(perAmount != 20);
+        if(totalScore == 0){
+            desButton.setEnabled(false);
+        }
+        else{
+           desButton.setEnabled(true);
+        }
 
-        //set per score text view
+        if(totalScore >= 20){
+            insButton.setEnabled(false);
+        }
+        else{
+            insButton.setEnabled(true);
+        }
+
+        //set total score text view
         TextView scoreAmountTextView = findViewById(R.id.scoreChangeText);
-        scoreAmountTextView.setText(String.valueOf(perAmount));
+        scoreAmountTextView.setText(String.valueOf(totalScore));
 
     }//end of update Screen
-
 
 
 }//end of main
