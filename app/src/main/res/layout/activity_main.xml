@@ -3,63 +3,53 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
     <!--score layout-->
+    <!--team name layout-->
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/linearLayoutScore"
         android:layout_width="match_parent"
         android:layout_height="140dp"
+        android:layout_marginTop="30dp"
         android:gravity="center"
         android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp">
+        tools:layout_editor_absoluteX="16dp">
 
         <TextView
             android:id="@+id/scoreAText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_weight="1"
+            style="@style/myTextViewStyle.Score"
+            android:layout_marginTop="20dp"
             android:gravity="center"
-            android:text="@string/scoreA"
-            android:textSize="76sp" />
+            android:text="@string/scoreA" />
 
         <TextView
             android:id="@+id/scoreBText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_weight="1"
+            style="@style/myTextViewStyle.Score"
+            android:layout_marginTop="20dp"
             android:gravity="center"
-            android:text="@string/scoreB"
-            android:textSize="76sp" />
+            android:text="@string/scoreB" />
     </LinearLayout>
-    <!--team name layout-->
+
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/linearLayoutTeam"
         android:layout_width="match_parent"
         android:layout_height="77dp"
         android:orientation="horizontal"
         android:paddingHorizontal="30dp"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutScore"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="1dp">
 
         <TextView
             android:id="@+id/nameA"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/teamA"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            style="@style/myTextViewStyle.TeamName"
+            android:text="@string/teamA" />
 
         <TextView
             android:id="@+id/vsText"
-            android:layout_width="3dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
@@ -68,57 +58,41 @@
 
         <TextView
             android:id="@+id/nameB"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/teamB"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            style="@style/myTextViewStyle.TeamName"
+            android:text="@string/teamB"/>
     </LinearLayout>
     <!--team choose layout-->
     <LinearLayout
-        android:id="@+id/linearLayout3"
+        android:id="@+id/linearLayoutForm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="78dp"
+        android:layout_marginTop="60dp"
         android:paddingHorizontal="30dp"
         android:paddingTop="10dp"
         android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout"
+        app:layout_constraintTop_toTopOf="@+id/linearLayoutTeam"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="1dp">
         <LinearLayout
-            android:id="@+id/linearLayout6"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:orientation="horizontal"
-            app:layout_constraintTop_toTopOf="@+id/linearLayout"
+            app:layout_constraintTop_toTopOf="@+id/linearLayoutTeam"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="1dp">
             <Button
                 android:id="@+id/teamAbut"
-                style="@style/Widget.AppCompat.Button"
+                style="@style/teamButton"
                 android:layout_width="20dp"
-                android:layout_height="60dp"
                 android:layout_marginEnd="30dp"
-                android:layout_weight="1"
-                android:background="#7B7B7B"
-                android:text="@string/team_a"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:text="@string/team_a" />
 
             <Button
                 android:id="@+id/teamBbut"
-                style="@style/Widget.AppCompat.Button"
+                style="@style/teamButton"
                 android:layout_width="30dp"
-                android:layout_height="60dp"
                 android:layout_marginStart="30dp"
-                android:layout_weight="1"
-                android:background="#7B7B7B"
-                android:text="@string/team_b"
-                android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:text="@string/team_b"/>
         </LinearLayout>
         <!--team radio choose layout-->
         <LinearLayout
@@ -159,7 +133,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="30dp"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutForm"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="1dp">
         <!--game title layout-->
@@ -167,21 +142,19 @@
             android:layout_width="match_parent"
             android:layout_height="28dp"
             android:orientation="horizontal">
-        <TextView
-            android:id="@+id/GameTitle"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text="@string/gameTitle"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-        <TextView
-            android:id="@+id/gameName"
-            android:textAlignment="textEnd"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="50dp"
-            android:textSize="20sp"
-            android:text="@string/gameName" />
+
+            <TextView
+                android:id="@+id/GameTitle"
+                style="@style/myTextViewStyle.Title"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="@string/gameTitle" />
+
+            <TextView
+                android:id="@+id/gameName"
+                style="@style/myTextViewStyle.Item"
+                android:text="@string/gameName" />
+
         </LinearLayout>
         <!--game choose-->
         <Spinner
@@ -195,12 +168,11 @@
         <!--score amount title-->
         <TextView
             android:id="@+id/AmountTitle"
+            style="@style/myTextViewStyle.Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="@string/amountTitle"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:text="@string/amountTitle" />
         <!--score amount choose-->
         <Spinner
             android:id="@+id/amountSpin"
@@ -209,7 +181,8 @@
             android:layout_height="65dp"
             android:entries="@array/scoreAmount"
             android:overlapAnchor="false"
-            android:spinnerMode="dropdown" />
+            android:spinnerMode="dropdown"
+            android:textColor="@color/yellow" />
         <!--score buttons layout-->
         <LinearLayout
             android:layout_width="match_parent"
@@ -218,46 +191,36 @@
 
             <TextView
                 android:id="@+id/scoreTitle"
+                style="@style/myTextViewStyle.Title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
-                android:text="@string/scoreTitle"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:text="@string/scoreTitle" />
             <!--increase and decrease buttons layout-->
             <LinearLayout
                 android:layout_width="170dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="horizontal"
-                android:paddingHorizontal="20dp">
+                android:paddingHorizontal="24dp">
 
                 <Button
                     android:id="@+id/desButton"
-                    android:layout_width="20dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    style="@style/scoreButton"
                     android:text="@string/desButton"
-                    android:textSize="20sp"
                     tools:ignore="NestedWeights" />
 
                 <TextView
                     android:id="@+id/scoreChangeText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_weight="1"
+                    style="@style/myTextViewStyle.ScoreAmount"
                     android:gravity="center"
-                    android:text="@string/scoreChangeText"
-                    android:textSize="20sp" />
+                    android:text="@string/scoreChangeText" />
 
                 <Button
                     android:id="@+id/insButton"
-                    android:layout_width="20dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/insButton"
-                    android:textSize="20sp" />
+                    style="@style/scoreButton"
+                    android:text="@string/insButton" />
             </LinearLayout>
 
         </LinearLayout>

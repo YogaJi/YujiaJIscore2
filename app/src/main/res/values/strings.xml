@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">YujiaJI-score</string>
     <string name="vs">VS</string>
-    <string name="team_a">Team A</string>
-    <string name="team_b">Team B</string>
-    <string name="teamA">Team A</string>
-    <string name="teamB">Team B</string>
+    <string name="team_a">Buffalo Bills</string>
+    <string name="team_b">Detroit Lions</string>
+    <string name="teamA">Buffalo Bills</string>
+    <string name="teamB">Detroit Lions</string>
     <string name="insButton">+</string>
     <string name="desButton">-</string>
     <string name="gameTitle">Game:</string>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="games">
-        <item>Game1</item>
-        <item>Game2</item>
-        <item>Game3</item>
-        <item>Game4</item>
+        <item>American Football</item>
+        <item>Basketball</item>
+        <item>Freestyle Wrestling</item>
+        <item>Cricket</item>
     </string-array>
     <string-array name="scoreAmount" >
     <item>1</item>
